@@ -49,48 +49,28 @@ body {
   margin: 0 auto;
   padding: 0 1rem;
 
-  @media (width >=40rem
-
-    /* 640px */
-  ) {
-    max-width: 40rem
-      /* 640px */
-    ;
+  /* 640px */
+  @media (width >=40rem) {
+    max-width: 40rem;
   }
 
-  @media (width >=48rem
-
-    /* 768px */
-  ) {
-    max-width: 48rem
-      /* 768px */
-    ;
+  /* 768px */
+  @media (width >=48rem) {
+    max-width: 48rem;
   }
 
-  @media (width >=64rem
-
-    /* 1024px */
-  ) {
-    max-width: 64rem
-      /* 1024px */
-    ;
+  /* 1024px */
+  @media (width >=64rem) {
+    max-width: 64rem;
   }
 
-  @media (width >=80rem
-
-    /* 1280px */
-  ) {
-    max-width: 80rem
-      /* 1280px */
-    ;
+  /* 1280px */
+  @media (width >=80rem) {
+    max-width: 80rem;
   }
 
-  @media (width >=96rem
-
-    /* 1536px */
-  ) {
-    max-width: 96rem
-      /* 1536px */
-    ;
+  /* 1536px */
+  @media (width >=96rem) {
+    max-width: 96rem;
   }
 }

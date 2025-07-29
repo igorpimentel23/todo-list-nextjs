@@ -42,7 +42,7 @@ Task list application developed with **Next.js 15**, **TypeScript**, **Tailwind 
 - **Headless UI 2.2.6** - Accessible unstyled components
 - **Heroicons 2.2.0** - SVG icons
 - **React Toastify 11.0.5** - Toast notifications
-- **Geist Font** - Modern typography
+- **Inter Font** - Modern typography
 
 ### Forms & Validation
 - **React Hook Form 7.61.1** - Form management
@@ -135,6 +135,7 @@ src/
 │   ├── edit/                     # Task editing page
 │   │   └── [id]/                # Dynamic route by ID
 │   │       └── page.tsx         # Page component
+│   ├── favicon.ico              # Application favicon
 │   ├── globals.css              # Global styles (Tailwind v4)
 │   ├── layout.tsx               # Main application layout
 │   └── page.tsx                 # Home page (task list)
@@ -143,15 +144,20 @@ src/
 │   ├── FormPage/                # Standard layout for form pages
 │   │   ├── Component.tsx        # Component implementation
 │   │   └── index.tsx            # Component export
-│   ├── Header.tsx               # Application header
+│   ├── Header/                  # Application header
+│   │   ├── Component.tsx        # Header implementation
+│   │   └── index.tsx            # Component export
 │   ├── LoadingSpinner/          # Loading component
 │   │   ├── Component.tsx        # Spinner implementation
 │   │   └── index.tsx            # Component export
 │   ├── TaskCard/                # Task display card
 │   │   ├── Component.tsx        # Card implementation
 │   │   └── index.tsx            # Component export
-│   └── TaskForm/                # Creation/editing form
-│       ├── Component.tsx        # Form implementation
+│   ├── TaskForm/                # Creation/editing form
+│   │   ├── Component.tsx        # Form implementation
+│   │   └── index.tsx            # Component export
+│   └── TaskList/                # Task list container
+│       ├── Component.tsx        # List implementation
 │       └── index.tsx            # Component export
 │
 ├── lib/                         # Utilities and configurations
@@ -162,8 +168,16 @@ src/
 │
 └── assets/                      # Static resources
     └── icons/                   # SVG icons
-        ├── Clipboard.svg
-        └── rocket.svg
+        ├── Clipboard.svg        # Clipboard icon
+        └── rocket.svg           # Rocket icon (used as favicon)
+
+public/                          # Public static files
+├── rocket.svg                   # Favicon SVG (copied from assets)
+├── globe.svg                    # Globe icon
+├── next.svg                     # Next.js logo
+├── vercel.svg                   # Vercel logo
+├── window.svg                   # Window icon
+└── file.svg                     # File icon
 ```
 
 ### Component Details
@@ -195,6 +209,22 @@ src/
 - **Responsibility**: Standard layout for form pages
 - **Features**: Container with header and back button
 - **Props**: `title`, `children`
+
+#### 5. **TaskList** (`src/components/TaskList/`)
+- **Responsibility**: Container for displaying task list
+- **Features**:
+  - Task list management and rendering
+  - Loading states and error handling
+  - Task operations (toggle, delete)
+- **Props**: `tasks`, `onToggleComplete`, `onDelete`, `isLoading`
+
+#### 6. **Header** (`src/components/Header/`)
+- **Responsibility**: Application header with navigation
+- **Features**:
+  - Application title and branding
+  - Navigation to create task page
+  - Consistent layout across pages
+- **Props**: `title?`
 
 ### Data Layer
 
@@ -239,22 +269,29 @@ class ApiClient {
 
 #### **Custom CSS** (`src/app/globals.css`)
 - CSS variables for colors and typography
-- Dark theme configuration
-- Custom utility classes
-- Responsive container configuration
+- Dark theme by default with CSS custom properties
+- Inter font integration with Google Fonts
+- Custom utility classes and responsive container
+- Color scheme with CSS variables: `--primary`, `--secondary`, `--gray-100` to `--gray-700`
+- Responsive container with breakpoints from 640px to 1536px
 
 ## 🎨 Design System
 
 ### Colors
 - **Primary**: `#4EA8DE` (Blue)
 - **Secondary**: `#5E60CE` (Purple)
-- **Background**: `#000000` (Black)
-- **Foreground**: `#1a1a1a` (Dark gray)
-- **Text**: `#808080` (Medium gray)
+- **Secondary Light**: `#8284FA` (Light Purple)
+- **Gray 100**: `#F2F2F2` (Very Light Gray)
+- **Gray 200**: `#D9D9D9` (Light Gray)
+- **Gray 300**: `#808080` (Medium Gray)
+- **Gray 600**: `#1A1A1A` (Dark Gray)
+- **Gray 700**: `#0D0D0D` (Dark Black)
+- **Background**: `#0D0D0D` (Gray 700)
+- **Text**: `#D9D9D9` (Gray 200)
 
 ### Typography
-- **Primary Font**: Geist Sans
-- **Mono Font**: Geist Mono
+- **Primary Font**: Inter (Google Fonts)
+- **Font Weights**: 400 (Regular), 500 (Medium), 700 (Bold)
 - **Hierarchy**: Titles, subtitles, body text
 
 ### Components
