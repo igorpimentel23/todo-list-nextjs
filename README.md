@@ -60,7 +60,7 @@ Task list application developed with **Next.js 15**, **TypeScript**, **Tailwind 
 ## 📋 Prerequisites
 
 - **Node.js 18+**
-- **npm, yarn or pnpm**
+- **yarn**
 - **Backend application running** (https://github.com/igorpimentel23/todo-list-node-prisma)
 
 ## 🔧 Installation & Setup
@@ -73,13 +73,7 @@ git clone git@github.com:igorpimentel23/todo-list-nextjs.git && cd todo-list-nex
 ### 2. Install dependencies
 ```bash
 # Using npm
-npm install
-
-# Using yarn
 yarn install
-
-# Using pnpm (recommended)
-pnpm install
 ```
 
 ### 3. Configure environment variables
@@ -91,14 +85,7 @@ cp .env.example .env
 
 ### 4. Run the project
 ```bash
-# Using npm
-npm run dev
-
-# Using yarn
 yarn dev
-
-# Using pnpm
-pnpm dev
 ```
 
 ### 5. Access the application
@@ -313,10 +300,10 @@ The application can be deployed on any platform that supports Next.js.
 
 ```bash
 # Development
-npm run dev          # Start development server
-npm run build        # Production build
-npm run start        # Start production server
-npm run lint         # Run ESLint
+yarn dev          # Start development server
+yarn build        # Production build
+yarn start        # Start production server
+yarn lint         # Run ESLint
 ```
 
 ## 📄 License
