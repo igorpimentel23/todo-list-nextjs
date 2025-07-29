@@ -44,7 +44,7 @@ const Component: React.FC<IFormPageProps> = ({ task, mode }) => {
   }, [router]);
 
   return (
-    <div className="bg-foreground min-h-screen">
+    <div className="min-h-screen bg-gray-600">
       <Header />
       <div className="container h-full">
         <Button onClick={handleCancel} className="mt-20 mb-10">

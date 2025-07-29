@@ -25,9 +25,7 @@ const RootLayout: React.FC<
 > = ({ children }) => {
   return (
     <html lang="en" className={inter.variable}>
-      <body
-        className={`${inter.className} min-h-screen bg-black text-white antialiased`}
-      >
+      <body className={`${inter.className} min-h-screen antialiased`}>
         {children}
         <ToastContainer
           position="top-center"

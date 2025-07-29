@@ -63,9 +63,7 @@ const Component: React.FC<ITaskCardProps> = ({
       <Button
         onClick={handleToggleComplete}
         className={`flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-2 transition-all duration-200 hover:scale-130 ${
-          task.completed
-            ? 'border-secondary bg-secondary text-white'
-            : 'border-primary'
+          task.completed ? 'border-secondary bg-secondary' : 'border-primary'
         } `}
       >
         {task.completed && <CheckIcon className="size-3" />}
@@ -73,7 +71,7 @@ const Component: React.FC<ITaskCardProps> = ({
 
       <div className="min-w-0 flex-1 text-left">
         <h3
-          className={`text-sm leading-tight font-medium break-words ${task.completed ? 'text-gray-400 line-through' : 'text-gray-200'} `}
+          className={`text-sm leading-tight font-medium break-words ${task.completed ? 'text-gray-300 line-through' : 'text-gray-100'} `}
         >
           {task.title}
         </h3>
@@ -101,7 +99,7 @@ const Component: React.FC<ITaskCardProps> = ({
             />
           </svg>
         ) : (
-          <TrashIcon className="size-4" />
+          <TrashIcon className="size-4 text-gray-300" />
         )}
       </Button>
     </div>

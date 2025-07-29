@@ -97,34 +97,34 @@ const Component: React.FC = () => {
         <>
           <Button
             onClick={handleCreateTask}
-            className="bg-primary focus:ring-primary hover:bg-primary/80 flex w-full -translate-y-[50%] items-center justify-center gap-2 rounded-lg px-4 py-4 text-sm font-bold text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:outline-none"
+            className="bg-primary focus:ring-primary hover:bg-primary/80 flex w-full -translate-y-[50%] items-center justify-center gap-2 rounded-lg px-4 py-4 text-sm font-bold text-gray-100 transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:outline-none"
           >
             Create Task
             <PlusCircleIcon className="size-5" />
           </Button>
 
-          <div className="my-6 flex justify-between gap-4 text-sm text-gray-400">
+          <div className="my-6 flex justify-between gap-4 text-sm">
             <span className="text-primary font-bold">
               Tasks:{' '}
-              <span className="rounded-full bg-gray-700 px-2 py-1 text-white">
+              <span className="rounded-full bg-gray-700 px-2 py-1 text-gray-200">
                 {totalTasks}
               </span>
             </span>
             <span className="text-secondary-light font-bold">
               Completed:{' '}
-              <span className="rounded-full bg-gray-700 px-2 py-1 text-white">
+              <span className="rounded-full bg-gray-700 px-2 py-1 text-gray-200">
                 {completedCount} of {totalTasks}
               </span>
             </span>
           </div>
 
           {tasks.length === 0 ? (
-            <div className="flex flex-col items-center justify-center gap-4 p-12 text-center">
-              <ClipboardIcon className="mx-auto h-16 w-16 text-gray-600" />
+            <div className="flex flex-col items-center justify-center gap-4 border-t border-t-gray-400 p-12 text-center">
+              <ClipboardIcon className="mx-auto h-16 w-16 text-gray-300" />
               <h3 className="mb-2 font-bold text-gray-300">
                 You don&apos;t have any tasks registered yet.
               </h3>
-              <p className="font-normal text-gray-500">
+              <p className="font-normal text-gray-300">
                 Create tasks and organize your to-do items.
               </p>
             </div>

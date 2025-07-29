@@ -84,7 +84,7 @@ const Component: React.FC<ITaskFormProps> = ({ task, onSubmit }) => {
         </Label>
         <Input
           {...register('title')}
-          className={`focus:border-primary focus:ring-primary bg-foreground-light w-full rounded-lg border px-3 py-2 text-white placeholder-gray-400 shadow-sm transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:outline-none ${formState.errors.title ? 'border-red-500' : 'border-white/5'} `}
+          className={`focus:border-primary focus:ring-primary bg-foreground-light w-full rounded-lg border px-3 py-2 placeholder-gray-400 shadow-sm transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:outline-none ${formState.errors.title ? 'border-red-500' : 'border-white/5'} `}
           placeholder="Ex. Brush your teeth"
           disabled={formState?.isSubmitting}
         />
@@ -127,7 +127,7 @@ const Component: React.FC<ITaskFormProps> = ({ task, onSubmit }) => {
         <Button
           type="submit"
           disabled={formState?.isSubmitting || !title}
-          className="bg-primary hover:bg-primary/80 focus:primary focus:primary flex-1 rounded-lg border border-transparent px-4 py-2 text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+          className="bg-primary hover:bg-primary/80 focus:primary focus:primary flex-1 rounded-lg border border-transparent px-4 py-2 text-gray-100 transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
         >
           <div className="flex items-center justify-center gap-2 text-sm font-bold">
             {formState?.isSubmitting && (
