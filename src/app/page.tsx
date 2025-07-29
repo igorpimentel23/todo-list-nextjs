@@ -1,103 +1,154 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { useState, useEffect, useCallback } from 'react';
+import { Button } from '@headlessui/react';
+import { PlusCircleIcon } from '@heroicons/react/24/outline';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import ClipboardIcon from '@/assets/icons/Clipboard.svg';
+import { Header } from '@/components/Header';
+import { LoadingSpinner } from '@/components/LoadingSpinner';
+import { TaskCard } from '@/components/TaskCard';
+import { apiClient } from '@/lib/api';
+import { ITask } from '@/types/task';
+
+const HomePage: React.FC = () => {
+  const router = useRouter();
+  const [tasks, setTasks] = useState<ITask[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const completedTasks = tasks.filter((task) => task.completed);
+  const totalTasks = tasks.length;
+  const completedCount = completedTasks.length;
+
+  const loadTasks = useCallback(async (triggerLoading = true) => {
+    try {
+      setLoading(triggerLoading);
+      setError(null);
+      const fetchedTasks = await apiClient.getTasks();
+      setTasks(fetchedTasks);
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error('Error loading tasks:', err);
+      setError('Error loading tasks. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadTasks();
+  }, [loadTasks]);
+
+  const handleToggleComplete = useCallback(
+    async (id: string, completed: boolean) => {
+      try {
+        const updatedTask = await apiClient.updateTask(id, { completed });
+        setTasks((prev) =>
+          prev.map((task) => (task.id === id ? updatedTask : task)),
+        );
+        loadTasks(false);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('Error updating task:', err);
+        setError('Error updating task. Please try again.');
+      }
+    },
+    [loadTasks],
+  );
+
+  const handleDelete = useCallback(
+    async (id: string) => {
+      try {
+        await apiClient.deleteTask(id);
+        setTasks((prev) => prev.filter((task) => task.id !== id));
+        loadTasks(false);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('Error deleting task:', err);
+        setError('Error deleting task. Please try again.');
+      }
+    },
+    [loadTasks],
+  );
+
+  const handleCreateTask = useCallback(() => {
+    router.push('/create');
+  }, [router]);
+
+  useEffect(() => {
+    if (error) {
+      toast(error, {
+        type: 'error',
+      });
+    }
+  }, [error]);
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="bg-foreground min-h-screen">
+      <Header />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      <div className="container mx-auto h-full">
+        {loading ? (
+          <div className="flex items-center justify-center">
+            <div className="text-center">
+              <LoadingSpinner size="lg" />
+              <p className="mt-4 text-gray-400">Loading tasks...</p>
+            </div>
+          </div>
+        ) : (
+          <>
+            <Button
+              onClick={handleCreateTask}
+              className="bg-primary focus:ring-primary hover:bg-primary/80 flex w-full -translate-y-[50%] items-center justify-center gap-2 rounded-lg px-4 py-4 text-sm font-bold text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:outline-none"
+            >
+              Create Task
+              <PlusCircleIcon className="size-5" />
+            </Button>
+
+            <div className="my-6 flex justify-between gap-4 text-sm text-gray-400">
+              <span className="text-primary font-bold">
+                Tasks:{' '}
+                <span className="rounded-full bg-gray-700 px-2 py-1 text-white">
+                  {totalTasks}
+                </span>
+              </span>
+              <span className="text-secondary-light font-bold">
+                Completed:{' '}
+                <span className="rounded-full bg-gray-700 px-2 py-1 text-white">
+                  {completedCount} of {totalTasks}
+                </span>
+              </span>
+            </div>
+
+            {tasks.length === 0 ? (
+              <div className="flex flex-col items-center justify-center gap-4 p-12 text-center">
+                <ClipboardIcon className="mx-auto h-16 w-16 text-gray-600" />
+                <h3 className="mb-2 font-bold text-gray-300">
+                  You don&apos;t have any tasks registered yet.
+                </h3>
+                <p className="font-normal text-gray-500">
+                  Create tasks and organize your to-do items.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {tasks.map((task) => (
+                  <TaskCard
+                    key={task.id}
+                    task={task}
+                    onToggleComplete={handleToggleComplete}
+                    onDelete={handleDelete}
+                  />
+                ))}
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
-}
+};
+
+export default HomePage;
