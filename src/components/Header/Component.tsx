@@ -1,6 +1,6 @@
 import RocketIcon from '@/assets/icons/rocket.svg';
 
-export const Header: React.FC = () => {
+const Component: React.FC = () => {
   return (
     <header className="bg-background flex items-center justify-center gap-2 py-20">
       <RocketIcon />
@@ -11,3 +11,5 @@ export const Header: React.FC = () => {
     </header>
   );
 };
+
+export default Component;

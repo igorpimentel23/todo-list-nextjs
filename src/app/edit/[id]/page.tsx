@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { FormPage } from '@/components/FormPage';
 import { apiClient } from '@/lib/api';
@@ -8,12 +9,15 @@ interface IEditTaskPageProps {
   }>;
 }
 
-export const generateMetadata = async ({ params }: IEditTaskPageProps) => {
+export const generateMetadata = async ({
+  params,
+}: IEditTaskPageProps): Promise<Metadata> => {
   const { id } = await params;
   const task = await apiClient.getTask(id);
 
   return {
     title: `Edit Task - ${task.title}`,
+    description: `Edit task ${task.title}`,
   };
 };
 

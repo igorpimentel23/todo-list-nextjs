@@ -1,22 +1,21 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono as GeistMono } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import { ToastContainer } from 'react-toastify';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const inter = Inter({
+  variable: '--font-inter',
   subsets: ['latin'],
-});
-
-const geistMono = GeistMono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+  weight: ['400', '500', '700'],
 });
 
 export const metadata: Metadata = {
   title: 'Todo App',
   description:
     'Task list application developed with Next.js, TypeScript and Tailwind CSS',
+  icons: {
+    icon: '/rocket.svg',
+  },
 };
 
 const RootLayout: React.FC<
@@ -25,9 +24,9 @@ const RootLayout: React.FC<
   }>
 > = ({ children }) => {
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-black text-white antialiased`}
+        className={`${inter.className} min-h-screen bg-black text-white antialiased`}
       >
         {children}
         <ToastContainer
