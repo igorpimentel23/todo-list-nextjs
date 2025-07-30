@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { FormPage } from '@/components/FormPage';
 import { apiClient } from '@/lib/api';
+import { ITask } from '@/types/task';
 
 interface IEditTaskPageProps {
   params: Promise<{
@@ -36,16 +37,22 @@ const EditTaskPage: React.FC<IEditTaskPageProps> = async ({ params }) => {
     return notFound();
   }
 
-  try {
-    const task = await apiClient.getTask(id);
+  let task: ITask;
 
-    return <FormPage task={task} mode="edit" />;
+  try {
+    task = await apiClient.getTask(id);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Error fetching task:', error);
 
     return notFound();
   }
+
+  if (!task) {
+    return notFound();
+  }
+
+  return <FormPage task={task} mode="edit" />;
 };
 
 export default EditTaskPage;
