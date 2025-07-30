@@ -21,6 +21,14 @@ export const generateMetadata = async ({
   };
 };
 
+export const generateStaticParams = async () => {
+  const tasks = await apiClient.getTasks();
+
+  return tasks.map((task) => ({
+    id: task.id,
+  }));
+};
+
 const EditTaskPage: React.FC<IEditTaskPageProps> = async ({ params }) => {
   const { id } = await params;
 
